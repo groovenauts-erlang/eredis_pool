@@ -104,13 +104,13 @@ delete_pool(PoolName) ->
 %% @end
 %%--------------------------------------------------------------------
 -spec q(PoolName::atom(), Command::iolist()) ->
-               {ok, binary() | [binary()]} | {error, Reason::binary()}.
+               {ok, binary() | [binary()]} | {error, Reason::binary() | no_connection | tcp_closed }.
 
 q(PoolName, Command) ->
     q(PoolName, Command, ?TIMEOUT).
 
 -spec q(PoolName::atom(), Command::iolist(), Timeout::integer()) ->
-               {ok, binary() | [binary()]} | {error, Reason::binary()}.
+               {ok, binary() | [binary()]} | {error, Reason::binary() | no_connection | tcp_closed }.
 
 q(PoolName, Command, Timeout) ->
     poolboy:transaction(PoolName, fun(Worker) ->
